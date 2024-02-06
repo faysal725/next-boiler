@@ -2,13 +2,12 @@
 'use client'
 
 import React, { useEffect, useState } from 'react'
-import Form from '../components/Form/Form'
-import FormInput from '../components/Inputs/FormInput'
-import Dropdown from '../components/Inputs/Dropdown'
-import Ckeditor from '../components/Inputs/Ckeditor'
-import PrimaryBtn from '../components/Button/PrimaryBtn'
-
-
+import FormInput from '@/components/Inputs/FormInput'
+import Dropdown from '@/components/Inputs/Dropdown'
+import Ckeditor from '@/components/Inputs/Ckeditor'
+import PrimaryBtn from '@/components/Button/PrimaryBtn'
+import Form from '@/components/Form/Form'
+// import { networkPost } from '@/utils/network'
 export default function Create() {
 
   const [userData, setUserData] = useState({})
@@ -17,6 +16,7 @@ export default function Create() {
 
   const submitData = () => {
     console.log(userData, 'asdfsdf')
+    // networkPost()
   }
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
