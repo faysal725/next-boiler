@@ -15,24 +15,15 @@ export default function Create() {
 
   const [userData, setUserData] = useState({})
 
-
-
   const submitData = async() => {
     await postData(JSON.stringify(userData))
   }
 
 
-
-  useEffect(()=> {
-    console.log(data, 'data')
-    console.log(error, 'error')
-  }, [data, error])
-
-  
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
       <div className="w-96" >
-          <Form title="Insert User Info">
+          <Form title="Insert User Info" isLoading={loading}>
             
               <label className="block">
                   <FormInput changedValue={(name) => setUserData({...userData, "name":name })} type="text" label="name" errorMsg={error["name"]}/>
