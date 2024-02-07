@@ -7,33 +7,44 @@ import Dropdown from '@/components/Inputs/Dropdown'
 import Ckeditor from '@/components/Inputs/Ckeditor'
 import PrimaryBtn from '@/components/Button/PrimaryBtn'
 import Form from '@/components/Form/Form'
-// import { networkPost } from '@/utils/network'
+import usePost from '@/hooks/usePosts'
+
+
 export default function Create() {
+  const { data, error, loading, postData } = usePost('/userdata/');
 
   const [userData, setUserData] = useState({})
 
 
 
-  const submitData = () => {
-    console.log(userData, 'asdfsdf')
-    // networkPost()
+  const submitData = async() => {
+    await postData(JSON.stringify(userData))
   }
+
+
+
+  useEffect(()=> {
+    console.log(data, 'data')
+    console.log(error, 'error')
+  }, [data, error])
+
+  
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
       <div className="w-96" >
           <Form title="Insert User Info">
             
               <label className="block">
-                  <FormInput changedValue={(name) => setUserData({...userData, "name":name })} type="text" label="name"/>
+                  <FormInput changedValue={(name) => setUserData({...userData, "name":name })} type="text" label="name" errorMsg={error["name"]}/>
               </label>
 
               <label className="block">
-                  <FormInput changedValue={(phone_number) => setUserData({...userData, "phone_number":phone_number })} type="number" label="phone" placeholder="Insert your phone no"/>
+                  <FormInput changedValue={(phone_number) => setUserData({...userData, "phone_number":phone_number })} type="number" label="phone" placeholder="Insert your phone no" />
               </label>
 
 
               <label className="block">
-                  <FormInput changedValue={(birthdate) => setUserData({...userData, "birthdate":birthdate })} type="date" label="Birthdate" />
+                  <FormInput changedValue={(birthdate) => setUserData({...userData, "birthdate":birthdate })} type="date" label="Birthdate" errorMsg={error["birthdate"]}/>
               </label>
 
               <label className="block">
@@ -54,10 +65,7 @@ export default function Create() {
                   </Dropzone>
               </label> */}
               
-
-              {/* <ButtonPrimary  type="submit" title="Submit">Continue</ButtonPrimary> */}
-              <button onClick={() => submitData()}>Submit</button>
-              <PrimaryBtn onClick={() => submitData} title="Submit" />
+              <PrimaryBtn clickHandler={() => submitData()} title="Submit" />
           </Form>
       </div>
       <div className='mt-10'>

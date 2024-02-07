@@ -1,48 +1,40 @@
-const baseUrl = "https://tasks.vitasoftsolutions.com/userdata"
+const baseUrl = "https://tasks.vitasoftsolutions.com"
 
-// export const  networkPost = async({method , path ,heads , body }) => {
-//     //Authorization: `Bearer ${token}`
-//     var errorMessage = "";
-//     var response;
-//     var errors= [];
-//     let flag = 200;
+export const  networkPost = async({method , path ,heads , body }) => {
+    //Authorization: `Bearer ${token}`
+    var errorMessage = "";
+    var response;
+    var errors= [];
+    var errorStatus
+    let flag = 200;
 
+    await fetch(baseUrl + path, {
+        method: method,
+        headers: heads,
+        body: body, 
+    }).then(async(res)=>{
+        if (!res.ok) {
+            errorStatus = await res.json()
 
-    
-
-
-//     await fetch(url, {
-//         method: method,
-//         headers: {
-//           'Content-Type': 'application/json',
-//           // Add any other headers as needed (e.g., authorization)
-//         },
-//         body: JSON.stringify(newData || data), // Use newData if provided, otherwise use current data
-//     });
-//     await $fetch(path, {
-//         method: method,
-//         baseURL: backendUrl,
-//         headers: heads,
-//         body:body
-//     }).then((res)=>{
-//         response = res;
-//     }).catch((error)=>{
-
-//         flag = 422;
-//         errorMessage = error.response._data.message;
-//         errors = error.response._data.errors;
-//     });
-//     if(flag == 422){
-//         return {
-//             'status' : 422,
-//             'errors': errors,
-//             'message': errorMessage,
-//         }
-//     }else{
-//         return {
-//             'status' : 200,
-//             'res': response,
-//             'message': "Network Responded Successfully",
-//         }
-//     }
-// }
+          throw new Error(`Error: ${errorStatus}`);
+        }
+        response = res;
+    }).catch((error)=>{
+        flag = 422;
+        errorMessage = errorStatus
+        errors = errorStatus
+    });
+    if(flag == 422){
+        return {
+            'status' : 422,
+            'errors': errors,
+            'message': errorMessage,
+        }
+    }else{
+        return {
+            'status' : 200,
+            'res': response,
+            'message': "Network Responded Successfully",
+        }
+    }
+}
