@@ -25,7 +25,6 @@ function usePost(url) {
           body: newData
       });
       
-      console.log(response.status, 'status error start')
       if (response.status !== 200) {
         // setError({errors : response.errors, message : response.message});
         setError(response.errors);

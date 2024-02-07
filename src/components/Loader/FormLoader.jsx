@@ -1,6 +1,6 @@
 import React from 'react'
 
-const ShimmerLoader = () => {
+const FormLoader = () => {
     return(
       <div className="border border-blue-300 shadow rounded-md p-4  w-full mx-auto">
         <div className="animate-pulse flex space-x-4">
@@ -31,4 +31,4 @@ const ShimmerLoader = () => {
       </div>
     )
   }
-  export default ShimmerLoader  
+  export default FormLoader  
